@@ -45,15 +45,18 @@ public:
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
         int n = accounts.size();
         DisjointSet ds(n);
+
         unordered_map<string,int> mp;
 
         for(int i=0;i<n;i++){
             for(int j=1;j<accounts[i].size();j++){
                 string str = accounts[i][j];
+
                 if(mp.find(str)!=mp.end()){
-                    int ind = mp[str];
-                    int curr_ind = i;
-                    ds.UnionBySize(ind,curr_ind);
+                    int u = mp[str];
+                    int v = i;
+
+                    ds.UnionBySize(u,v);
                 }
                 else{
                     mp[str] = i;
@@ -65,15 +68,16 @@ public:
 
         for(auto it: mp){
             int ind = it.second;
-            string str = it.first;
             ind = ds.FindUltPar(ind);
+            string str = it.first;
 
             temp[ind].push_back(str);
         }
 
-        vector<vector<string>> res;
+        vector<vector<string>> ans;
         for(int i=0;i<n;i++){
             if(temp[i].size()==0)   continue;
+
             vector<string> v;
             v.push_back(accounts[i][0]);
 
@@ -81,12 +85,11 @@ public:
             for(auto it: temp[i]){
                 v.push_back(it);
             }
-            res.push_back(v);
+            ans.push_back(v);
         }
-        return res;
+        return ans;
     }
 };
-
 
 int main() {
     return 0;

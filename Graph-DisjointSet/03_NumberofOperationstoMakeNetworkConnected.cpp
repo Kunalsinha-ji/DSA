@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class DisjointSet{
+class DisjointSet {
     public:
-    vector<int> size;
-    vector<int> parent;
-    DisjointSet (int n){
-        size.resize(n+1,1);
+    vector<int> rank,parent;
+
+    DisjointSet(int n){
+        rank.resize(n+1,0);
         parent.resize(n+1);
 
         for(int i=0;i<=n;i++){
@@ -16,25 +16,31 @@ class DisjointSet{
 
     // Find Ultimate Parent
     int FindUltPar(int u){
-        if(parent[u]==u)    return u;
+        if(parent[u]==u){
+            return u;
+        }
 
         return parent[u] = FindUltPar(parent[u]);
     }
 
-    // Union By Size
-    void UnionBySize(int u,int v){
+    // Union By Rank
+    void UnionByRank(int u,int v){
         int ult_pu = FindUltPar(u);
         int ult_pv = FindUltPar(v);
 
-        if(ult_pu==ult_pv)  return;
+        if(ult_pu==ult_pv){
+            return;
+        }
 
-        if(size[ult_pu]>size[ult_pv]){
-            size[ult_pu] += size[ult_pv];
+        if(rank[ult_pu]>rank[ult_pv]){
             parent[ult_pv] = ult_pu;
         }
-        else{
-            size[ult_pv] += size[ult_pu];
+        else if(rank[ult_pv]>rank[ult_pu]){
             parent[ult_pu] = ult_pv;
+        }
+        else{
+            parent[ult_pv] = ult_pu;
+            rank[ult_pu]++;
         }
     }
 };
@@ -50,22 +56,24 @@ public:
 
             if(ds.FindUltPar(u)==ds.FindUltPar(v)){
                 extra_links++;
-                continue;
             }
             else{
-                ds.UnionBySize(u,v);
+                ds.UnionByRank(u,v);
             }
         }
 
-        int independent_comp = 0;
+        int independent_components = 0;
+
         for(int i=0;i<n;i++){
             if(ds.parent[i]==i){
-                independent_comp++;
+                independent_components++;
             }
         }
 
-        if(independent_comp-1<=extra_links) return independent_comp-1;
-        return -1;
+        if(extra_links<independent_components-1){
+            return -1;
+        }
+        return independent_components-1;
     }
 };
 

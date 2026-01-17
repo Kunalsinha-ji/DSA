@@ -64,47 +64,47 @@ class DisjointSet{
 class Solution {
   public:
     vector<int> numOfIslands(int n, int m, vector<vector<int>> &operators) {
-        // code here
-        vector<int> v;
-        vector<vector<int>> grid(n,vector<int>(m,0));
+        vector<int> ans;
 
         DisjointSet ds(n*m);
 
+        vector<vector<int>> grid(n,vector<int> (m,0));
         int dr[] = {1,0,-1,0};
         int dc[] = {0,1,0,-1};
 
         int count = 0;
-        for(int i=0;i<operators.size();i++){
-            int r = operators[i][0];
-            int c = operators[i][1];
+        for(auto it: operators){
+            int r = it[0];
+            int c = it[1];
 
-            if(grid[r][c]==1){
-                v.push_back(count);
+            if(grid[r][c]){
+                ans.push_back(count);
                 continue;
             }
 
             grid[r][c] = 1;
             count++;
+
             for(int i=0;i<4;i++){
                 int nr = r + dr[i];
                 int nc = c + dc[i];
 
-                if(nr>=0 && nc>=0 && nr<n && nc<m && grid[nr][nc]){
-                    int u = nr*m + nc;
-                    int v = r*m + c;
+                if(nr>=0 && nc>=0 && nc<m && nr<n && grid[nr][nc]){
+                    int u = r*m + c;
+                    int v = nr*m+nc;
 
                     if(ds.FindUltPar(u)!=ds.FindUltPar(v)){
-                        ds.UnionBySize(u,v);
                         count--;
+                        ds.UnionBySize(u,v);
                     }
                 }
             }
-
-            v.push_back(count);
+            ans.push_back(count);
         }
-        return v;
+        return ans;
     }
 };
+
 
 int main() {
     return 0;
