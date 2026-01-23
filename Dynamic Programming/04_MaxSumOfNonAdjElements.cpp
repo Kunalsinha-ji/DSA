@@ -69,6 +69,67 @@ public:
     }
 };
 
+class Solution {
+    int solve(vector<int> &nums,int i){
+        if(i<0){
+            return 0;
+        }
+
+        int ntake = solve(nums,i-1);
+        int take = solve(nums,i-2) + nums[i];
+
+        return max(take,ntake);
+    }
+
+    int solve(vector<int> &nums,int i, vector<int> &dp){
+        if(i<0){
+            return 0;
+        }
+        if(dp[i]!=-1)   return dp[i];
+
+        int ntake = solve(nums,i-1,dp);
+        int take = solve(nums,i-2,dp) + nums[i];
+
+        return dp[i] = max(take,ntake);
+    }
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+
+        // // Recursive
+        // return solve(nums,n-1);
+
+        // // Memoization
+        // vector<int> dp(n,-1);
+        // return solve(nums,n-1,dp);
+
+        // // Tabulation
+        // vector<int> dp(n+2);
+        // dp[0] = dp[1] = 0;
+
+        // for(int i=2;i<n+2;i++){
+        //     int ntake = dp[i-1];
+        //     int take = dp[i-2] + nums[i-2];
+
+        //     dp[i] = max(take,ntake);
+        // }
+        // return dp[n+1];
+
+        // Space optimization
+        int last = 0, last1 = 0;
+
+        for(int i=2;i<n+2;i++){
+            int ntake = last;
+            int take = last1 + nums[i-2];
+
+            int curr = max(ntake,take);
+            last1 = last;
+            last = curr;
+        }
+        return last;
+    }
+};
+
 int main() {
     return 0;
 }
