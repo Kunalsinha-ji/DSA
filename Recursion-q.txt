@@ -1,0 +1,8 @@
+M-Coloring Problem
+Combination Sum II
+Generate Parentheses
+String to Integer (atoi)
+Count Good Numbers
+N-Queens
+Sudoku Solver
+Expression Add Operators
