@@ -2,25 +2,23 @@
 using namespace std;
 
 class Solution {
-    void solve(vector<string> &ans,string s,int o,int c){
+    void solve(vector<string> &ans,string st,int o,int c){
         if(o==0 && c==0){
-            ans.push_back(s);
+            ans.push_back(st);
             return;
         }
 
-        if (o>0 || o==c){
-            solve(ans,s+'(',o-1,c);
+        if(o || o==c){
+            solve(ans,st+"(",o-1,c);
         }
-
-        if (o<c){
-            solve(ans,s+')',o,c-1);
+        if(c>o){
+            solve(ans,st+")",o,c-1);
         }
     }
 public:
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        string st = "";
-        solve(ans,st,n,n);
+        solve(ans,"",n,n);
         return ans;
     }
 };

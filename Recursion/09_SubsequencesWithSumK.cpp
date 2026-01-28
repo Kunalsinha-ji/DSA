@@ -13,7 +13,9 @@ void solve(vector<int> &nums,vector<vector<int>> &ans,vector<int> v,int sum,int 
     solve(nums,ans,v,sum,i+1);
     if(sum>=nums[i]){
         v.push_back(nums[i]);
-        solve(nums,ans,v,sum-nums[i],i+1);
+        sum -= nums[i];
+        solve(nums,ans,v,sum,i+1);
+        sum += nums[i];
         v.pop_back();
     }
 }

@@ -1,24 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Solution {
+    bool solve(vector<int> &arr,int sum,int i){
+        if(sum==0){
+            return 1;
+        }
+        if(i<0){
+            return 0;
+        }
 
-bool solve(int i,int sum,vector<int>&arr){
-    if(i==0){
-        return sum==0;
+        bool ntake = solve(arr,sum,i-1);
+        if(arr[i]<=sum){
+            bool take = solve(arr,sum-arr[i],i-1);
+            ntake = take | ntake;
+        }
+        return ntake;
     }
-
-    bool ntake = solve(i-1,sum,arr);
-    if(arr[i-1]<=sum){
-        bool take = solve(i-1,sum-arr[i-1],arr);
-        ntake = take || ntake;
+  public:
+    bool checkSubsequenceSum(int n, vector<int>& arr, int k) {
+        return solve(arr,k,n-1);
     }
-
-    return ntake;
-}
-bool isSubsetPresent(int n, int k, vector<int> &a)
-{
-    return solve(n,k,a);
-}
+};
 
 int main() {
     return 0;

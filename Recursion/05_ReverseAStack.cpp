@@ -2,7 +2,7 @@
 using namespace std;
 
 class Solution {
-    void insert(stack<int> &st,int num){
+    void insertAtBottom(stack<int> &st,int num){
         if(st.empty()){
             st.push(num);
             return;
@@ -10,8 +10,7 @@ class Solution {
 
         int n = st.top();
         st.pop();
-
-        insert(st,num);
+        insertAtBottom(st,num);
         st.push(n);
     }
   public:
@@ -22,9 +21,8 @@ class Solution {
 
         int num = st.top();
         st.pop();
-
         reverseStack(st);
-        insert(st,num);
+        insertAtBottom(st,num);
     }
 };
 

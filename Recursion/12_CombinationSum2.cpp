@@ -2,32 +2,34 @@
 using namespace std;
 
 class Solution {
-    void solve(vector<int> &nums,set<vector<int>> &ans,vector<int> v,int sum,int i){
-    if(sum==0){
-        ans.insert(v);
-        return;
-    }
-    if(i==nums.size()){
-        return;
-    }
+    void solve(vector<int> &nums,int i,int sum,vector<int> v,set<vector<int>> &res){
+        if(sum==0){
+            res.insert(v);
+            return;
+        }
+        if(i==nums.size()){
+            return;
+        }
 
-    solve(nums,ans,v,sum,i+1);
-    if(sum>=nums[i]){
-        v.push_back(nums[i]);
-        solve(nums,ans,v,sum-nums[i],i+1);
-        v.pop_back();
+        solve(nums,i+1,sum,v,res);
+        if(sum>=nums[i]){
+            v.push_back(nums[i]);
+            solve(nums,i+1,sum-nums[i],v,res);
+            v.pop_back();
+        }
     }
-}
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
         sort(candidates.begin(),candidates.end());
-        set<vector<int>> ans;
-        solve(candidates,ans,{},target,0);
-        vector<vector<int>> res;
-        for(auto it: ans){
-            res.push_back(it);
+        vector<int> v;
+        set<vector<int>> res;
+        solve(candidates,0,target,v,res);
+
+        for(auto it: res){
+            ans.push_back(it);
         }
-        return res;
+        return ans;
     }
 };
 

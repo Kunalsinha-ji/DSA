@@ -7,33 +7,31 @@ class Solution {
             if(s[i]!=s[j]){
                 return 0;
             }
-            i++;
-            j--;
+            i++;j--;
         }
         return 1;
     }
-    void solve(vector<vector<string>> &ans,string &s,vector<string> v,int i){
+    void solve(string &s,int i,vector<string> v,vector<vector<string>> &ans){
         if(i==s.size()){
             ans.push_back(v);
             return;
         }
 
         string str = "";
-        int k = i;
-        while(k<s.size()){
+        for(int k=i;k<s.size();k++){
             str += s[k];
             if(isPalindrome(s,i,k)){
                 v.push_back(str);
-                solve(ans,s,v,k+1);
+                solve(s,k+1,v,ans);
                 v.pop_back();
             }
-            k++;
         }
     }
 public:
     vector<vector<string>> partition(string s) {
         vector<vector<string>> ans;
-        solve(ans,s,{},0);
+        vector<string> v;
+        solve(s,0,v,ans);
         return ans;
     }
 };

@@ -4,31 +4,31 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        set<vector<int>> ans;
         int n = nums.size();
-
         n = pow(2,n);
+
+        set<vector<int>> res;
+        sort(nums.begin(),nums.end());
 
         for(int i=0;i<n;i++){
             int num = i;
+            int ind = 0;
             vector<int> v;
-            int j = 0;
             while(num){
-                if((num&1)==1){
-                    v.push_back(nums[j]);
+                if(num&1){
+                    v.push_back(nums[ind]);
                 }
-                j++;
                 num = num>>1;
+                ind++;
             }
-            ans.insert(v);
+            res.insert(v);
         }
 
-        vector<vector<int>> res;
-        for(auto i : ans){
-            res.push_back(i);
+        vector<vector<int>> ans;
+        for(auto it: res){
+            ans.push_back(it);
         }
-        return res;
+        return ans;
     }
 };
 

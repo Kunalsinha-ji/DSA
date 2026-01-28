@@ -2,16 +2,16 @@
 using namespace std;
 
 class Solution {
-    bool solve(string &s,set<string> &words, int i){
+    bool solve(string &s,set<string> &st,int i){
         if(i==s.size()){
             return 1;
         }
 
-        string word = "";
+        string str = "";
         for(int k=i;k<s.size();k++){
-            word += s[k];
-            if(words.find(word)!=words.end()){
-                bool res = solve(s,words,k+1);
+            str += s[k];
+            if(st.find(str)!=st.end()){
+                bool res = solve(s,st,k+1);
                 if(res){
                     return 1;
                 }
@@ -19,20 +19,27 @@ class Solution {
         }
         return 0;
     }
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> st(wordDict.begin(),wordDict.end());
+        return solve(s,st,0);
+    }
+};
 
-    bool solve(string &s,set<string> &words, int i,vector<int> &dp){
+class Solution {
+    bool solve(string &s,set<string> &st,int i,vector<int> &dp){
         if(i==s.size()){
             return 1;
         }
         if(dp[i]!=-1)   return dp[i];
 
-        string word = "";
+        string str = "";
         for(int k=i;k<s.size();k++){
-            word += s[k];
-            if(words.find(word)!=words.end()){
-                bool res = solve(s,words,k+1,dp);
+            str += s[k];
+            if(st.find(str)!=st.end()){
+                bool res = solve(s,st,k+1,dp);
                 if(res){
-                    return dp[i] = 1;
+                    return dp[i] =  1;
                 }
             }
         }
@@ -40,14 +47,9 @@ class Solution {
     }
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-        set<string> words(wordDict.begin(),wordDict.end());
-
-        // // Recursive
-        // return solve(s,words,0);
-
-        // Memoization
+        set<string> st(wordDict.begin(),wordDict.end());
         vector<int> dp(s.size(),-1);
-        return solve(s,words,0,dp);
+        return solve(s,st,0,dp);
     }
 };
 

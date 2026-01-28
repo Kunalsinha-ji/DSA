@@ -26,6 +26,33 @@ public:
     }
 };
 
+class Solution {
+    void solve(vector<vector<int>> &ans,vector<int> v,vector<int> &arr,int sum,int i){
+        if(sum==0){
+            ans.push_back(v);
+            return;
+        }
+        if(i<0){
+            return;
+        }
+
+        solve(ans,v,arr,sum,i-1);
+        if(sum>=arr[i]){
+            v.push_back(arr[i]);
+            solve(ans,v,arr,sum-arr[i],i);
+            v.pop_back();
+        }
+    }
+  public:
+    vector<vector<int>> targetSumComb(vector<int> &arr, int target) {
+        int n = arr.size();
+        vector<vector<int>> ans;
+        vector<int> v;
+        solve(ans,v,arr,target,n-1);
+        return ans;
+    }
+};
+
 int main() {
     return 0;
 }

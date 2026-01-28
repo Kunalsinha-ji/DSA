@@ -11,11 +11,11 @@ class Solution {
         }
 
         double res = solve(x,n/2);
-        if(n%2==0){
-            return res * res;
+        if(n%2){
+            return res*res*x;
         }
         else{
-            return res*res*x;
+            return res*res;
         }
     }
 public:
@@ -24,6 +24,7 @@ public:
         if(n<0){
             sign = -1;
         }
+
         return sign==1? solve(x,n) : 1/solve(x,n);
     }
 };

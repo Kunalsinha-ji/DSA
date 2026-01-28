@@ -2,43 +2,41 @@
 using namespace std;
 
 class Solution {
-    void solve(vector<string> &ans,string s,vector<vector<int>> &maze,int i,int j,vector<vector<int>> &vis){
-        if(i==maze.size()-1 && j==maze[0].size()-1){
+    void solve(vector<vector<int>> &maze,vector<vector<int>> &vis,int r,int c,string s,vector<string> &ans){
+        if(r<0 || c<0 || r>=maze.size() || c>=maze[0].size() || maze[r][c]==0 || vis[r][c]){
+            return;
+        }
+        if(r==maze.size()-1 && c==maze[0].size()-1){
             ans.push_back(s);
             return;
         }
-        if(i<0 || j<0 || i>=maze.size() || j>=maze[0].size() || maze[i][j]==0 || vis[i][j]){
-            return;
-        }
-        vis[i][j] = 1;
+        vis[r][c] = 1;
 
         int dr[] = {1,0,-1,0};
         int dc[] = {0,1,0,-1};
-        char chars[] = {'D','R','U','L'};
+        char ch[] = {'D','R','U','L'};
 
-        for(int k=0;k<4;k++){
-            int r = i + dr[k];
-            int c = j + dc[k];
-            char ch = chars[k];
+        for(int i=0;i<4;i++){
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+            char cc = ch[i];
 
-            s += ch;
-            solve(ans,s,maze,r,c,vis);
-            s.pop_back();
+            solve(maze,vis,nr,nc,s+cc,ans);
         }
-        vis[i][j] = 0;
+        vis[r][c] = 0;
     }
   public:
     vector<string> ratInMaze(vector<vector<int>>& maze) {
-        int n = maze.size(), m = maze[0].size();
+        vector<string> ans;
+        int n = maze.size();
+        int m = maze[0].size();
 
         if(maze[0][0]==0 || maze[n-1][m-1]==0){
-            return {};
+            return ans;
         }
 
         vector<vector<int>> vis(n,vector<int> (m,0));
-        vector<string> ans;
-        string st = "";
-        solve(ans,st,maze,0,0,vis);
+        solve(maze,vis,0,0,"",ans);
         sort(ans.begin(),ans.end());
         return ans;
     }

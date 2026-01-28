@@ -2,16 +2,16 @@
 using namespace std;
 
 class Solution {
-    void sortedInsert(stack<int> &st,int n){
-        if(st.empty() || st.top()<n){
-            st.push(n);
+    void sortedInsert(stack<int> &st,int num){
+        if(st.empty() || st.top()<num){
+            st.push(num);
             return;
         }
 
-        int top = st.top();
+        int n = st.top();
         st.pop();
-        sortedInsert(st,n);
-        st.push(top);
+        sortedInsert(st,num);
+        st.push(n);
     }
   public:
     void sortStack(stack<int> &st) {
@@ -19,10 +19,11 @@ class Solution {
             return;
         }
 
-        int top = st.top();
+        int num = st.top();
         st.pop();
+
         sortStack(st);
-        sortedInsert(st,top);
+        sortedInsert(st,num);
     }
 };
 
