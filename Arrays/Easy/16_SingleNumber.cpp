@@ -2,16 +2,15 @@
 using namespace std;
 
 class Solution {
-  public:
-    int largest(vector<int> &arr) {
+public:
+    int singleNumber(vector<int>& nums) {
         int ans = 0;
-        for(int i=0;i<arr.size();i++){
-            ans = max(ans,arr[i]);
+        for(auto it: nums){
+            ans ^=it;
         }
         return ans;
     }
 };
-
 
 int main() {
     return 0;
