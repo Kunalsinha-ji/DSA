@@ -22,7 +22,8 @@ public:
 class Solution {
     void merge(vector<int> &arr,int l,int mid,int h){
         vector<int> temp;
-        int i = l,j = mid+1;
+        int i = l,j=mid+1;
+
         while(i<=mid && j<=h){
             if(arr[i]<=arr[j]){
                 temp.push_back(arr[i]);
@@ -33,7 +34,7 @@ class Solution {
                 j++;
             }
         }
-        
+
         while(i<=mid){
             temp.push_back(arr[i]);
             i++;
@@ -42,26 +43,29 @@ class Solution {
             temp.push_back(arr[j]);
             j++;
         }
-        
         for(int k=0;k<temp.size();k++){
             arr[l++] = temp[k];
         }
     }
+
     int counter(vector<int> &arr,int l,int mid,int h){
         int count = 0;
-        int j = mid+1;
-        for(int i=l;i<=mid;i++){
-            while(j<=h && arr[i]>2*arr[j]){
-                j++;
+        int right = mid+1;
+
+        for(int i = l; i <= mid; i++){
+            while(right <= h && arr[i] > 2LL * arr[right]){
+                right++;
             }
-            count += (j-mid-1);
+            count += (right - mid - 1);
         }
+
         return count;
     }
     int mergeSort(vector<int> &arr,int l,int h){
         if(l>=h){
             return 0;
         }
+
         int count = 0;
         int mid = (l+h)/2;
         count += mergeSort(arr,l,mid);

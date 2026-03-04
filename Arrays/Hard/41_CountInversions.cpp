@@ -25,7 +25,8 @@ class Solution {
     int merge(vector<int> &arr,int l,int mid,int h){
         vector<int> temp;
         int count = 0;
-        int i = l,j = mid+1;
+        int i = l,j=mid+1;
+
         while(i<=mid && j<=h){
             if(arr[i]<=arr[j]){
                 temp.push_back(arr[i]);
@@ -46,7 +47,6 @@ class Solution {
             temp.push_back(arr[j]);
             j++;
         }
-
         for(int k=0;k<temp.size();k++){
             arr[l++] = temp[k];
         }
@@ -56,6 +56,7 @@ class Solution {
         if(l>=h){
             return 0;
         }
+
         int count = 0;
         int mid = (l+h)/2;
         count += mergeSort(arr,l,mid);
@@ -63,10 +64,10 @@ class Solution {
         count += merge(arr,l,mid,h);
         return count;
     }
-
   public:
     int inversionCount(vector<int> &arr) {
-        return mergeSort(arr,0,arr.size()-1);
+        int n = arr.size();
+        return mergeSort(arr,0,n-1);
     }
 };
 

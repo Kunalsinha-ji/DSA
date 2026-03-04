@@ -55,6 +55,38 @@ class Solution {
     }
 };
 
+// Optimal
+class Solution {
+  public:
+    vector<int> findTwoElement(vector<int>& arr) {
+        int n = arr.size();
+
+        long long int orgsum1 = (n*(n+1))/2;
+        long long int orgsum2 = (n*(n+1)*(2*n+1))/6;
+
+        long long int sum1 = 0, sum2 = 0;
+
+        for(int i=0;i<n;i++){
+            sum1 += arr[i];
+            sum2 += (arr[i]*arr[i]);
+        }
+
+        // orgsum1-sum1 = missing - repeating
+        long long int diff1 = orgsum1 - sum1;
+
+        // orgsum2-sum2 = missing^2 - repeating^2
+        long long int diff2 = orgsum2 - sum2;
+
+        // missing^2 - repeating^2 = (missing - repeating) * (missing + repeating)
+        long long int sum3 = diff2 / diff1;  // (missing + repeating)
+
+        long long int missing = (diff1 + sum3)/2;
+        long long int repeating = sum3 - missing;
+
+        return {int(repeating), int(missing)};
+    }
+};
+
 int main() {
     return 0;
 }
