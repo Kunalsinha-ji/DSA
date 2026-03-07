@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Trick > then >=
-
 class Solution {
     bool isOperand(char ch){
         if(ch>='a' && ch<='z'){
@@ -21,15 +19,15 @@ class Solution {
         stack<char> st;
         string ans = "";
         unordered_map<char,int> priority;
-        priority['/'] = 2;
-        priority['*'] = 2;
-        priority['+'] = 1;
-        priority['-'] = 1;
         priority['^'] = 3;
+        priority['*'] = 2;
+        priority['/'] = 2;
+        priority['-'] = 1;
+        priority['+'] = 1;
 
         for(auto it: s){
             if(isOperand(it)){
-                ans+= it;
+                ans += it;
             }
             else if(it=='('){
                 st.push(it);
@@ -45,7 +43,7 @@ class Solution {
             }
             else{
                 if(it=='^'){
-                        while(!st.empty() && priority[st.top()]>priority[it]){
+                    while(!st.empty() && priority[st.top()]>priority[it]){
                         ans += st.top();
                         st.pop();
                     }
