@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// User function Template for C++
-
 class Solution {
     bool isOperand(char ch){
         if(ch>='a' && ch<='z'){
@@ -18,8 +16,8 @@ class Solution {
     }
   public:
     string preToPost(string s) {
-        stack<string> st;
         int n = s.size();
+        stack<string> st;
 
         for(int i=n-1;i>=0;i--){
             if(isOperand(s[i])){

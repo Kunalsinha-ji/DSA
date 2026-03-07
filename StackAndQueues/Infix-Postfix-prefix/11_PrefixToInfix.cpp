@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// User function Template for C++
-
 class Solution {
     bool isOperand(char ch){
         if(ch>='a' && ch<='z'){
@@ -19,6 +17,7 @@ class Solution {
   public:
     string preToInfix(string s) {
         int n = s.size();
+
         stack<string> st;
 
         for(int i=n-1;i>=0;i--){
@@ -33,7 +32,7 @@ class Solution {
                 string op2 = st.top();
                 st.pop();
 
-                string res = "(" + op1 + s[i] + op2 + ')';
+                string res = "(" + op1 + s[i] + op2 + ")";
                 st.push(res);
             }
         }

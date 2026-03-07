@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// User function Template for C++
-
 class Solution {
     bool isOperand(char ch){
         if(ch>='a' && ch<='z'){

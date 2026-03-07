@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// User function Template for C++
-
 class Solution {
     bool isOperand(char ch){
         if(ch>='a' && ch<='z'){
@@ -32,7 +30,7 @@ class Solution {
                 string op1 = st.top();
                 st.pop();
 
-                string res = "(" + op1 + it + op2 + ')';
+                string res = "(" + op1 + it + op2 + ")";
                 st.push(res);
             }
         }
