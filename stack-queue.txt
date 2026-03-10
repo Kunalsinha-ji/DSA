@@ -1,0 +1,12 @@
+challenges:
+Min stack
+LRU cache
+LFU cache
+
+solved:
+INFIX - POSTFIX
+INFIX - PREFIX
+Sum of Subarray Mins
+Remove k numbers
+Sliding window maximim
+stock span
