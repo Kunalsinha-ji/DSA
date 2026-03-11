@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// O(N) solution
 class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
@@ -15,11 +14,11 @@ public:
                 break;
             }
         }
+
         return k;
     }
 };
 
-// O(log N)
 class Solution {
 public:
     int findKthPositive(vector<int>& arr, int k) {
@@ -31,7 +30,6 @@ public:
             int mid = low + (high-low)/2;
 
             int missing = arr[mid] - mid - 1;
-            // At index 0 -> 1, 1 -> 2, 2 -> 3 .....
 
             if(missing<k){
                 low = mid + 1;
@@ -41,14 +39,20 @@ public:
             }
         }
 
-        // Now between high - low we will have our missing number
-        // missing before high: arr[high] - high -1;
-        // How many missing left -> k - missing before
-        // Our answer is -> arr[high] + missing left
-        // arr[high] + k - missing
+        // Now the missing element will be between high - low
+        /*
+        missing till high = arr[high] - high - 1
+        missing element we need to find is after high -> arr[high] + more
+        left missing element after high = more = k - missing till high
+        therefore missing element we need to find is = arr[high] + k - missing till high
+        missing element = arr[high] + k - (arr[high] - high - 1)
+        missing element = arr[high] + k - arr[high] + high + 1
+        */
+
         return k + high + 1;
     }
 };
+
 int main() {
     return 0;
 }

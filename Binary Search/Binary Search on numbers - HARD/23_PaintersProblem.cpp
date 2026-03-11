@@ -2,42 +2,41 @@
 using namespace std;
 
 class Solution {
-    int solve(vector<int> &arr,int maxPages){
-        int stud = 1;
-        int sumPages = 0;
+    int solve(vector<int> &arr,int canPaintMax){
+        int n = arr.size();
 
-        for(int i=0;i<arr.size();i++){
-            if(arr[i] + sumPages>maxPages){
-                stud++;
-                sumPages = arr[i];
+        int painter = 1;
+        int sumPaint = 0;
+
+        for(int it : arr){
+            if(it+sumPaint>canPaintMax){
+                painter++;
+                sumPaint = it;
             }
             else{
-                sumPages += arr[i];
+                sumPaint += it;
             }
         }
-        return stud;
+        return painter;
     }
   public:
-    int findPages(vector<int> &arr, int k) {
+    int minTime(vector<int>& arr, int k) {
         int n = arr.size();
-        if(k>n){
-            return -1;
-        }
-
         int low = *max_element(arr.begin(),arr.end());
+        // atleast a painter can paint a board of max length
         int high = 0;
 
-        // Can give all books to 1 student
         for(auto it: arr){
             high += it;
         }
+        // A painter can paint all
 
         while(low<=high){
             int mid = low + (high-low)/2;
 
-            int countStud = solve(arr,mid);
+            int paintersReq = solve(arr,mid);
 
-            if(countStud>k){
+            if(paintersReq>k){
                 low = mid + 1;
             }
             else{
