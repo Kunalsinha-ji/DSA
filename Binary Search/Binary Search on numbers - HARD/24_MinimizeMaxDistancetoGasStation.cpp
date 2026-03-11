@@ -4,13 +4,13 @@ using namespace std;
 class Solution {
     int solve(vector<int> &stations, double dist){
         int count = 0;
-        
+
         for(int i = 0; i < stations.size() - 1; i++){
             double gap = stations[i+1] - stations[i];
             int need = gap / dist;
-            
-            if(gap == need * dist) need--;  
-            
+
+            if(gap == need * dist) need--;
+
             count += need;
         }
         return count;
