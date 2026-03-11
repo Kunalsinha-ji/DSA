@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// kkk
-
 int main() {
     return 0;
 }
