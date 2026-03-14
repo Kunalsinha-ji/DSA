@@ -1,0 +1,8 @@
+Search in rotated sorted array
+Find minimum in Rotated Sorted Array, Find out how many times the array is rotated
+Single element in a Sorted Array
+Find peak element
+Kth Missing Positive Number
+Minimize Max Distance to Gas Station
+Median of 2 sorted arrays
+Kth element of 2 sorted arrays
