@@ -4,37 +4,36 @@ using namespace std;
 class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
-        int f = 0,t = 0;
+        int ten = 0;
+        int five = 0;
 
-        int i=0;
-        while(i<bills.size()){
-            if(bills[i]==5){
-                f++;
+        for(auto it: bills){
+            if(it==5){
+                five++;
             }
-            else if(bills[i]==10){
-                if(f){
-                    f--;
-                    t++;
+            else if(it==10){
+                if(five){
+                    five--;
+                    ten++;
                 }
                 else{
-                    return 0;
+                    return false;
                 }
             }
             else{
-                if(t && f){
-                    t--;
-                    f--;
+                if(ten && five){
+                    ten--;
+                    five--;
                 }
-                else if(f>=3){
-                    f -= 3;
+                else if(five>=3){
+                    five -= 3;
                 }
                 else{
-                    return 0;
+                    return false;
                 }
             }
-            i++;
         }
-        return 1;
+        return true;
     }
 };
 

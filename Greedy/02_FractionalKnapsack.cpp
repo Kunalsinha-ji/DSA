@@ -2,37 +2,40 @@
 using namespace std;
 
 class Solution {
-    static bool cmp(pair<double,int> p1, pair<double,int> p2){
-        return p1.first>p2.first;
-    }
   public:
     double fractionalKnapsack(vector<int>& val, vector<int>& wt, int capacity) {
-        // code here
-        int n = val.size();
-        vector<pair<double,int>> v;
+        vector<pair<double,int>> arr;
 
-        for(int i=0;i<n;i++){
-            double vpw = double(val[i])/double(wt[i]);
-            v.push_back({vpw,wt[i]});
+        for(int i=0;i<val.size();i++){
+            int v = val[i];
+            int w = wt[i];
+
+            double costPerWt = double(v)/double(w);
+
+            arr.push_back({costPerWt,w});
         }
 
-        sort(v.begin(),v.end(),cmp);
-        int i = 0;
-        double res = 0;
-        while(i<n && capacity!=0){
-            if(capacity>v[i].second){
-                capacity -= v[i].second;
-                res += (v[i].first * v[i].second);
+        sort(arr.rbegin(),arr.rend());
+
+        double ans = 0;
+
+        for(auto it : arr){
+            int wgt = it.second;
+            double vv = it.first;
+
+            if(capacity>=wgt){
+                ans += double(vv * wgt);
+                capacity -= wgt;
             }
             else{
-                res += (v[i].first * capacity);
+                ans += double(vv * capacity);
                 capacity = 0;
             }
-            i++;
         }
-        return res;
+        return ans;
     }
 };
+
 
 int main() {
     return 0;
