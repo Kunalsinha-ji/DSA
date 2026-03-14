@@ -7,18 +7,21 @@ class Solution {
     }
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        int remove = 0;
         int n = intervals.size();
+
         sort(intervals.begin(),intervals.end(),cmp);
 
         int end = intervals[0][1];
-        int remove = 0;
+
         for(int i=1;i<n;i++){
-            if(end>intervals[i][0]){
-                // This is overlapping hence remove it
-                // if we remove it we don't even consider it
+            if(intervals[i][0]<end){
+                // This is overlapping remove it
+                // once it is removed we don't consider its values at all
                 remove++;
             }
             else{
+                // Move to next interval and set new end
                 end = intervals[i][1];
             }
         }
